@@ -3,7 +3,7 @@
  */
 
 function userContactComponent(user) {
-  return render('_user_contact_component', { 
+  return render('user_contact_component', { 
     email: user.emailAddresses[0].value, 
     phoneNumbers: user.phoneNumbers
   });
@@ -13,7 +13,7 @@ function userOrganizationComponent(user) {
   // do nothing if no organizations present
   if (!user.organizations) return;
 
-  return render('_user_organization_component', { 
+  return render('user_organization_component', { 
     department: user.organizations[0].department, 
     title: user.organizations[0].title 
   });
@@ -29,7 +29,7 @@ function userPhotoComponent(user) {
   // this replace s=100 with s=300 to increase size from 100px to 300px
   const src = url.slice(0, -3) + "300";
 
-  return render('_user_photo_component', { src: src})
+  return render('user_photo_component', { src: src})
 }
 
 /**
