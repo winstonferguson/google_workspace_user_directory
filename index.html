@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <?!= include('stylesheet'); ?>
+
+  </head>
+  <body>
+    <aside>
+      <div class="search">
+        <input id='search' type="search" placeholder="Search for name, department, or title" oninput="searchString(event)">
+        <span class="material-icons">search</span>
+      <div>
+    </aside>
+    <main class="content">  
+
+      <?!= render('_directory'); ?>
+
+    </main>
+
+    <?!= include('javascript'); ?>
+
+  </body>
+</html>

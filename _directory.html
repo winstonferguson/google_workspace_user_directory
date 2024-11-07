@@ -1,0 +1,20 @@
+<div id='directory' class='grid'>      
+  
+  <? for (const user of directory()) { ?>
+  
+    <div class='card' data-search-string='<?= userSearchSting(user) ?>'>
+
+      <?!= userPhotoComponent(user) ?>
+
+      <div class='info'>
+        <h3><?= user.names[0].displayName ?></h3>
+
+        <?!= userOrganizationComponent(user) ?>
+        <?!= userContactComponent(user) ?>
+
+      </div>
+    </div>
+
+  <? } ?>
+
+</div>

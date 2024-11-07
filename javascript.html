@@ -1,0 +1,14 @@
+<script>
+  function searchString(event) {
+    const items = document.querySelectorAll(".card");
+    const string = event.target.value.trim().toLowerCase();
+
+    items.forEach(item => {
+      item.style.display = 'revert';
+
+      if (!item.dataset.searchString.toLowerCase().includes(string)) {
+        item.style.display = 'none';
+      }
+    })
+  }
+</script>

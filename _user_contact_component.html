@@ -1,0 +1,9 @@
+<a href='mailto:<?= email ?>'><?= email ?></a>
+
+<? if (phoneNumbers) { ?>
+ <? for (const number of phoneNumbers) { ?>
+
+   <a href='tel:<?= number.value ?>'><?= number.value ?></a>
+   
+   <? } ?>
+<? } ?>
