@@ -1,0 +1,20 @@
+<dialog>
+  <button class="close" aria-label="close" onclick='closeDialog(event)'>×</button>
+  <div class="profile">
+
+    <?!= userPhoto(user) ?>
+    
+    <div class="info">
+      <h3><?= user.name.fullName ?></h3>
+
+      <?!= userOrganization(user) ?> 
+      <?!= userIntroduction(user) ?>
+      
+      <br>
+      <hr>
+      
+      <?!= render('user_contact', { user: user }) ?>      
+    
+    </div>
+  </div>
+</dialog>

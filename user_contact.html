@@ -1,0 +1,14 @@
+<h4>Contact information</h4>
+
+<a href="mailto:<?= user.primaryEmail ?>"><?= user.primaryEmail ?></a>
+
+<? if (user.phones) { ?>
+
+  <? for (const phone of user.phones ) { ?>
+    <?= phone.type ?>: <?= phone.value ?>
+
+    <br>
+
+  <? } ?>
+
+<? } ?>

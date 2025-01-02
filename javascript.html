@@ -1,4 +1,52 @@
 <script>
+  var directoryLoaded = false;
+  var page = 0;
+
+  // updates cursor display to pointer on user cards
+  function cardsReady() {
+    const cards = document.querySelectorAll(".card");
+    
+    for (const card of cards) {
+      card.style.cursor = "pointer"
+    }
+  }
+  
+
+  // Loads a directory by fetching a set number of users, passing them to the render function,
+  // and recursively calling itself if a next page token is available.
+  function directoryLoad(pageToken = "") {
+    google.script.run
+    .withSuccessHandler((response) => {
+        const users = response.users.filter((user) => user.customSchemas == undefined || user.customSchemas.Intranet.Exclude == false);
+        // add user grid to directory
+        directoryRender(users);
+
+        if ( response.nextPageToken ) {
+          page += 1;
+          // load the next set of users
+          directoryLoad(response.nextPageToken, page)
+        } else {
+          directoryLoaded = true;
+          // hide the loader
+          document.querySelector("aside .loader").classList.remove('show');
+          // show the search bar
+          document.querySelector("aside .search").classList.add('show');
+          // show cards can be clicked
+          cardsReady();
+        }
+      })
+    .withFailureHandler((error) => console.error(error.message))
+    .readList({pageToken: pageToken}, page);
+  }
+
+  // Depends on the render function defined in code.gs to render a partial grid of users.
+  function directoryRender(users) {
+    google.script.run
+      .withSuccessHandler((html) => document.getElementById("directory").innerHTML += html)
+      .withFailureHandler((error) => console.error(error.message))
+      .render('users', {'users': users })
+  }
+
   function searchString(event) {
     const items = document.querySelectorAll(".card");
     const string = event.target.value.trim().toLowerCase();
@@ -11,4 +59,23 @@
       }
     })
   }
+
+  function showProfile(event) {   
+  if ( !directoryLoaded ) return; 
+
+   const dialog = event.target.parentElement.querySelector('dialog');
+
+   if (dialog) dialog.showModal();
+  }
+
+  function closeDialog(event) {
+   event.target.closest('dialog').close();
+  }
+
+
+  // start loading directory
+  window.onload = () => {
+    directoryLoad();
+  }
+
 </script>
